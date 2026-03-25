@@ -341,7 +341,6 @@
   
   <!-- Информационная панель -->
   <div class="info-panel" id="infoPanel" style="display: none;">
-    <div class="full-pinyin" id="fullPinyin"></div>
     <div class="translation" id="fullTranslation"></div>
   </div>
   
@@ -553,7 +552,6 @@
   const editorLine = document.getElementById('editorLine');
   const inlineInput = document.getElementById('inlineInput');
   const infoPanel = document.getElementById('infoPanel');
-  const fullPinyinEl = document.getElementById('fullPinyin');
   const fullTranslationEl = document.getElementById('fullTranslation');
   const audioBar = document.getElementById('audioBar');
   const statusMsg = document.getElementById('statusMessage');
@@ -740,7 +738,6 @@
       });
     });
 
-    fullPinyinEl.textContent = pinyinArray.join(' ');
     const translation = await translator.translate(text);
     fullTranslationEl.textContent = translation || '— перевод не найден —';
 
