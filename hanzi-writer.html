@@ -800,40 +800,37 @@
   }
   
   // Аудио функции
-  function speakText(text, rate = 1) {
-    if (!window.speechSynthesis || !text || isSpeaking) return;
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'zh-CN';
-    utterance.rate = rate;
-    utterance.onstart = () => {
-      isSpeaking = true;
-      speakBtn.disabled = true;
-      speakSlowBtn.disabled = true;
-      stopBtn.disabled = false;
-    };
-    utterance.onend = () => {
-      isSpeaking = false;
+  function speakTextReal(text) {
+    if (!text) return;
+
+    // стоп предыдущего
+    speechSynthesis.cancel();
+
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'zh-CN';
+    utter.rate = 0.9;
+
+    speakBtn.disabled = true;
+    stopBtn.disabled = false;
+
+    utter.onend = () => {
       speakBtn.disabled = false;
-      speakSlowBtn.disabled = false;
       stopBtn.disabled = true;
     };
-    utterance.onerror = () => {
-      isSpeaking = false;
+
+    utter.onerror = (e) => {
+      console.error("Speech error:", e);
       speakBtn.disabled = false;
-      speakSlowBtn.disabled = false;
       stopBtn.disabled = true;
     };
-    window.speechSynthesis.speak(utterance);
+
+    speechSynthesis.speak(utter);
   }
   
   function stopSpeaking() {
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio = null;
-      // кнопки
-      speakBtn.disabled = false;
-      stopBtn.disabled = true;
-    }
+    speechSynthesis.cancel();
+    speakBtn.disabled = false;
+    stopBtn.disabled = true;
   }
 
   // ===================== НОРМАЛЬНЫЙ TTS =====================
