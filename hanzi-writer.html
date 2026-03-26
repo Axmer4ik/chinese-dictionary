@@ -847,7 +847,7 @@
     }
 
     const speed = slow ? 0.5 : 1;
-    const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=zh-CN&client=tw-ob&ttsspeed=${speed}`;
+    const url = `https://translate.googleapis.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=zh-CN&client=gtx`;
 
     const audio = new Audio(url);
     currentAudio = audio;
