@@ -803,13 +803,15 @@
   function speakTextReal(text) {
     if (!text) return;
 
-    // стоп предыдущего
+    // останавливаем предыдущее воспроизведение
     speechSynthesis.cancel();
 
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = 'zh-CN';
-    utter.rate = 0.9;
+    utter.rate = 0.9;   // скорость (можешь менять 0.7–1.1)
+    utter.pitch = 1;    // тон (обычно 1 нормально)
 
+    // кнопки
     speakBtn.disabled = true;
     stopBtn.disabled = false;
 
@@ -819,13 +821,13 @@
     };
 
     utter.onerror = (e) => {
-      console.error("Speech error:", e);
+      console.error('Speech error:', e);
       speakBtn.disabled = false;
       stopBtn.disabled = true;
     };
 
     speechSynthesis.speak(utter);
-  }
+}
   
   function stopSpeaking() {
     speechSynthesis.cancel();
